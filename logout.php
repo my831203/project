@@ -3,6 +3,7 @@
 <?php
 //將session清空
 unset($_SESSION['id']);
+unset($_SESSION['num']);
 echo '登出中......';
 echo '<meta http-equiv=REFRESH CONTENT=1;url=log.php>';
 ?>
