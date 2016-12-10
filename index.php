@@ -19,7 +19,11 @@
             if (isset($_SESSION['id'])) {
 
                 $id = $_SESSION['id'];
+
+                // $link就是我當初在弄config檔時給的變數， query就是請求資料，其他都長一樣
                 $query = $link->query("SELECT * FROM member where id = '$id'");
+
+                // $query是上面我設定的變數，->就是物件導向不用管他名稱，fetch_assoc() 這方法等同於mysql_query() 就改成這樣而已
                 $row = $query->fetch_assoc();
         ?>
     </div>
@@ -46,21 +50,40 @@
         </div>
 
         <div class="ui three bottom attached buttons">
+            <!-- 這裡我建議改成ajax比較方便 -->
+                <form class="ui large form">
+                <input type="image" class="ui tiny circular image" name="seeds" id="seeds" value="1000" src="img/seeds.png"  style="background-color:#f4f4f4;">
+                </form>
 
-            <form class="ui large form" name="form1" method="post" action="seeds.php" >
-                <input type="image" class="ui tiny circular image" name="seeds" id="seeds" value="1000" src="img/seeds.png" onClick="document.form1.submit()" style="background-color:#f4f4f4;">
-                <input type="hidden" name="total" value="<?php echo $row[11];?>">
-            </form>
+                <form class="ui large form">
+                <input type="image" class="ui tiny circular image" name="water" id="water" value="3000" src="img/water.png"  style="background-color:#f4f4f4;">
+                </form>
 
-            <form class="ui large form" name="form2" method="post" action="water.php">
-                <input type="image" class="ui tiny circular image" name="water" id="water" value="3000" src="img/water.png" onClick="document.form2.submit()" style="background-color:#f4f4f4;">
-                <input type="hidden" name="total" value="<?php echo $item_total;?>">
-            </form>
+                <form class="ui large form">           
+                <input type="image" class="ui tiny circular image" name="farmer" id="farmer" value="5000" src="img/farmer.png" style="background-color:#f4f4f4;">
+                </form>
 
-            <form class="ui large form" name="form3" method="post" action="famer.php">
-                <input type="image" class="ui tiny circular image" name="farmer" id="farmer" value="5000" src="img/farmer.png" onClick="document.form3.submit()" style="background-color:#f4f4f4;">
-                <input type="hidden" name="total" value="<?php echo $item_total;?>">
-            </form>
+        <script>
+            $("ui large form").click(function(){
+
+                $.ajax({
+                    type:'post',
+                    url:'del_coin.php',
+                    dataType:'json',
+                    data: {
+                        but : $(this).attr('id'),
+                        value : $(this).attr('value'),
+                    },
+
+                    error: function (xhr) {
+                        alert('加入購物車失敗');
+                    },
+                    success: function (response) {
+                        alert('加入購物車成功');
+                    }
+                });
+            });
+        </script>
 
         </div>
     </div>

@@ -7,7 +7,7 @@ $db_server = "localhost";
 //資料庫名稱
 $db_name = "play";
 //資料庫管理者帳號
-$db_user = "wenlly";
+$db_user = "root";
 //資料庫管理者密碼
 $db_passwd = "12345678";
 
