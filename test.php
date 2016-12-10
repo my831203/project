@@ -1,31 +1,31 @@
+<?php session_start(); ?>
 <html>
 <head>
     <title>TLH</title>
     <meta charset="utf-8">
-    <link href="Semantic-UI-CSS-master\semantic.min.css" rel="stylesheet">
-    <script src="Semantic-UI-CSS-master\semantic.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="Semantic-UI-CSS-master/semantic.min.js"></script>
 </head>
 
 <body>
-    <p></p>
-    
-    <div class="ui labeled icon menu">
-      <a class="item" href="index.php">
-        <i class="home icon"></i>
-        首頁
-      </a>
-      <a class="item" href="learn.php">
-        <i class="book icon"></i>
-        教學
-      </a>
-      <a class="item" href="test.php">
-        <i class="write icon"></i>
-        測驗
-      </a>
-      <a class="item" href="shop.php">
-        <i class="shop icon"></i>
-        商城
-      </a>
+    <div class="ui labeled icon menu" style="background-color: #82b541;color: #FFFFFF;">
+        <?php
+            require 'config.php';
+            require 'menu.php';
+            // 找出該使用者 member 表資料
+
+            if (isset($_SESSION['id'])) {
+
+                $id = $_SESSION['id'];
+
+                // $link就是我當初在弄config檔時給的變數， query就是請求資料，其他都長一樣
+                $query = $link->query("SELECT * FROM member where id = '$id'");
+
+                // $query是上面我設定的變數，->就是物件導向不用管他名稱，fetch_assoc() 這方法等同於mysql_query() 就改成這樣而已
+                $row = $query->fetch_assoc();
+        ?>
     </div>
 
 <?php
@@ -104,6 +104,8 @@ function find_value()
 <input type='submit' value='確認送出' name='submin' onclick='find_value()'>
 </form>
 
-
+<?php
+        }
+    ?>
 </body>
 </html>

@@ -27,6 +27,8 @@
                 $row = $query->fetch_assoc();
         ?>
     </div>
+
+    
     <div class="ui center aligned segment">
 
         <div class="ui center aligned statistic">
@@ -51,7 +53,7 @@
 
         <div class="ui three bottom attached buttons">
             <!-- 這裡我建議改成ajax比較方便 -->
-                <form class="ui large form">
+                <form class="ui large form" >
                 <input type="image" class="ui tiny circular image" name="seeds" id="seeds" value="1000" src="img/seeds.png"  style="background-color:#f4f4f4;">
                 </form>
 
@@ -64,7 +66,7 @@
                 </form>
 
         <script>
-            $("ui large form").click(function(){
+            $("ui tiny circular image").click(function(){
 
                 $.ajax({
                     type:'post',
@@ -76,10 +78,10 @@
                     },
 
                     error: function (xhr) {
-                        alert('加入購物車失敗');
+                        alert('失敗');
                     },
                     success: function (response) {
-                        alert('加入購物車成功');
+                        alert('成功');
                     }
                 });
             });

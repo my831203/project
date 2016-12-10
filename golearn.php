@@ -10,13 +10,13 @@
 </head>
 
 <body>
-    <div class="ui labeled icon menu" style="background-color: #82b541;color: #FFFFFF;">
-        <?php
-            require 'config.php';
-            require 'menu.php';
-            // 找出該使用者 member 表資料
+<div class="ui labeled icon menu" style="background-color: #82b541;color: #FFFFFF;">
+<?php  
 
-            if (isset($_SESSION['id'])) {
+    require 'config.php';
+    require 'menu.php';
+
+    if (isset($_SESSION['id'])) {
 
                 $id = $_SESSION['id'];
 
@@ -26,37 +26,29 @@
                 // $query是上面我設定的變數，->就是物件導向不用管他名稱，fetch_assoc() 這方法等同於mysql_query() 就改成這樣而已
                 $row = $query->fetch_assoc();
 
-            }
-        ?>
-    </div>
 
-<?php  
-    require 'config.php';
+        }?>  
+</div>         
+
+<?php 
+    $B  = $_GET['B'];
+
+    $sql =$link->query(" SELECT * FROM learn where lesson = '$B' ");
     
-
-    $result = $link->query(" SELECT * FROM learn ");
-    
-    while($row = $result->fetch_assoc()) 
-    {
-
-
+    while($row = $sql->fetch_assoc()) 
+    {       
 ?>
 
-    <div class="ui cards">
-  
-  <div class="card">
-    <div class="content">
-      <div class="header">第<?=$row['lesson'];?>單元</div>
-      <div class="description"><?=$row['point'];?> </div>
-    </div>
-    <div class="ui bottom attached button" onclick="location.href='golearn.php?B=<?=$row['lesson'];?>'"><i class="add icon" ></i> 進入學習 </div>
-  </div>
-</div>
+<h2 class="ui header">
+  <img class="ui image" ><i class="student icon"></i>
+  <div class="content">第<?=$row['lesson'];?>單元</div>
+  <div class="description"><?=$row['point'];?> </div>
+</h2>
+
 
 <?php
-
         }
     ?>
-    
+
 </body>
 </html>
