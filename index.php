@@ -28,7 +28,7 @@
         ?>
     </div>
 
-    
+
     <div class="ui center aligned segment">
 
         <div class="ui center aligned statistic">
@@ -51,44 +51,50 @@
 
         </div>
 
-        <div class="ui three bottom attached buttons">
-            <!-- 這裡我建議改成ajax比較方便 -->
-                <form class="ui large form" >
-                <input type="image" class="ui tiny circular image" name="seeds" id="seeds" value="1000" src="img/seeds.png"  style="background-color:#f4f4f4;">
-                </form>
-
-                <form class="ui large form">
-                <input type="image" class="ui tiny circular image" name="water" id="water" value="3000" src="img/water.png"  style="background-color:#f4f4f4;">
-                </form>
-
-                <form class="ui large form">           
-                <input type="image" class="ui tiny circular image" name="farmer" id="farmer" value="5000" src="img/farmer.png" style="background-color:#f4f4f4;">
-                </form>
+        <div class="ui small images">
+            <img class="ui tiny circular image func" types="seeds" value="1000" src="img/seeds.png">
+            <img class="ui tiny circular image func" types="water" value="3000" src="img/water.png">
+            <img class="ui tiny circular image func" types="famer" value="5000" src="img/farmer.png">
+        </div>
 
         <script>
-            $("ui tiny circular image").click(function(){
 
-                $.ajax({
-                    type:'post',
-                    url:'del_coin.php',
-                    dataType:'json',
-                    data: {
-                        but : $(this).attr('id'),
-                        value : $(this).attr('value'),
-                    },
+            $(".func").click(function(){
+                if ($(this).attr('types') == "seeds") {
 
-                    error: function (xhr) {
-                        alert('失敗');
-                    },
-                    success: function (response) {
-                        alert('成功');
-                    }
-                });
+                    $.ajax({
+                        type:'post',
+                        url:'del_coin.php',
+                        dataType:'json',
+                        data: {
+                            value : $(this).attr('value'),
+                        },
+                        error: function (xhr) {
+                            alert('failed');
+                        },
+                        success: function (response) {
+
+                            var response = $.parseJSON(JSON.stringify(response));
+                            if (response.status == true) {
+                                alert('success');
+                            }
+                            else{
+                                alert('臭廢物，沒錢玩三小！');
+                            }
+                        }
+                    });
+                }
+                else if ($(this).attr('types') == "water") {
+                    // 依此類推
+                }
+                else if ($(this).attr('types') == "famer") {
+                    // 依此類推
+                }
             });
+
         </script>
 
         </div>
-    </div>
     <?php
         }
     ?>

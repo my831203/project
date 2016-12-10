@@ -30,20 +30,17 @@
         ?>
     </div>
 
-<?php  
-    require 'config.php';
-    
+<?php
+    $result = $link->query("SELECT * FROM learn");
 
-    $result = $link->query(" SELECT * FROM learn ");
-    
-    while($row = $result->fetch_assoc()) 
+    while($row = $result->fetch_assoc())
     {
 
 
 ?>
 
     <div class="ui cards">
-  
+
   <div class="card">
     <div class="content">
       <div class="header">第<?=$row['lesson'];?>單元</div>
@@ -57,6 +54,6 @@
 
         }
     ?>
-    
+
 </body>
 </html>
