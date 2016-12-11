@@ -76,20 +76,63 @@
 
                             var response = $.parseJSON(JSON.stringify(response));
                             if (response.status == true) {
-                                alert('success');
+                                alert('施肥成功，將會扣金幣1000');
                             }
                             else{
-                                alert('臭廢物，沒錢玩三小！');
+                                alert('趕快去練習賺點錢吧~');
                             }
                         }
                     });
                 }
                 else if ($(this).attr('types') == "water") {
-                    // 依此類推
+                    $.ajax({
+                        type:'post',
+                        url:'del_coin.php',
+                        dataType:'json',
+                        data: {
+                            value : $(this).attr('value'),
+                        },
+                        error: function (xhr) {
+                            alert('failed');
+                        },
+                        success: function (response) {
+
+                            var response = $.parseJSON(JSON.stringify(response));
+                            if (response.status == true) {
+                                alert('澆水成功，將會扣金幣3000');
+                            }
+                            else{
+                                alert('趕快去練習賺點錢吧~');
+                            }
+                        }
+                    });
+                    
                 }
                 else if ($(this).attr('types') == "famer") {
-                    // 依此類推
+                    $.ajax({
+                        type:'post',
+                        url:'del_coin.php',
+                        dataType:'json',
+                        data: {
+                            value : $(this).attr('value'),
+                        },
+                        error: function (xhr) {
+                            alert('failed');
+                        },
+                        success: function (response) {
+
+                            var response = $.parseJSON(JSON.stringify(response));
+                            if (response.status == true) {
+                                alert('除草成功，將會扣金幣5000');
+                            }
+                            else{
+                                alert('趕快去練習賺點錢吧~');
+                            }
+                        }
+                    });
+                  
                 }
+                
             });
 
         </script>
