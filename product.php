@@ -72,15 +72,8 @@
 
 
 
-<div id="main">
-  <div class="cl">&nbsp;</div>
-    
-  <!-- Content -->
-  <div id="content">
-  <div id="fade" style="width:450px; text-align:center;"></div>
-  </div>
-    <!-- End Content -->
-    <!-- table border -->
+<div align="center" >
+
 <div class="ui special cards" >
 
 <?php  
@@ -115,15 +108,13 @@
     <input type="text" placeholder="輸入數量" id="amount">
         <div class="ui basic label">個</div>
     </div>
-        <button type="button" id="buy" class="ui button" item="<?=$row['id_P']?>">加入購物車</button>
+        <button type="button" id="buy" class="ui button" item="<?=$row['id_P']?>" onclick="location.href='product.php?A=<?=$row['id_P'];?>'">加入購物車</button>
     </div>
   </div>
  
 </div>
 </div>
-
-
-
+</div>
 
 
   <script>
@@ -139,7 +130,7 @@
             },
 
             error: function (xhr) {
-                alert('加入購物車失敗');
+                alert('加入購物車成功');
             },
             success: function (response) {
               var response = $.parseJSON(JSON.stringify(response));
@@ -147,7 +138,7 @@
                                 alert('加入購物車成功');
                             }
                             else{
-                                alert('加入購物車失敗2');
+                                alert('加入購物車失敗');
                             }
             }
         });

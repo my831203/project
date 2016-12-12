@@ -9,7 +9,7 @@
     <script src="Semantic-UI-CSS-master/semantic.min.js"></script>
 </head>
 
-<body>
+<body style="background-color: #f5f5f1;">
     <div class="ui labeled icon menu" style="background-color: #82b541;color: #FFFFFF;">
         <?php
             require 'config.php';
@@ -25,13 +25,15 @@
 
                 // $query是上面我設定的變數，->就是物件導向不用管他名稱，fetch_assoc() 這方法等同於mysql_query() 就改成這樣而已
                 $row = $query->fetch_assoc();
+            }
         ?>
     </div>
 
 
-    <div class="ui center aligned segment">
+    <div class="ui center aligned segment"  style="background-image:url(img/bg.jpg);" >
+    <?php//style="background-image:url(img/bg.png);"?>
 
-        <div class="ui center aligned statistic">
+        <div class="ui center aligned statistic"  >
 
             <div class="label">
                 <img src="img/bank.png" class="ui mini circular inline image"> <?=$row['coin']?>
@@ -45,16 +47,16 @@
                   echo '<img src="img/2.png">';
                 }
                 else{
-                  echo '<img src="img/3.png">';
+                  echo '<img src="img/1.gif">';
                 }
             ?>
 
         </div>
 
-        <div class="ui small images">
-            <img class="ui tiny circular image func" types="seeds" value="1000" src="img/seeds.png">
-            <img class="ui tiny circular image func" types="water" value="3000" src="img/water.png">
-            <img class="ui tiny circular image func" types="famer" value="5000" src="img/farmer.png">
+        <div class="ui tiny images">
+            <button class="ui medium circular image" onclick="location.href='index.php'"><img class="ui tiny circular image func" types="seeds" value="1000" src="img/seeds.png" ></button>
+            <button class="ui medium circular image" onclick="location.href='index.php'"><img class="ui tiny circular image func" types="water" value="3000" src="img/water.png" onclick="location.href='index.php'"></button>
+            <button class="ui medium circular image" onclick="location.href='index.php'"><img class="ui tiny circular image func" types="famer" value="5000" src="img/farmer.png" onclick="location.href='index.php'"></button>
         </div>
 
         <script>
@@ -138,9 +140,7 @@
         </script>
 
         </div>
-    <?php
-        }
-    ?>
+
 
 </body>
 </html>

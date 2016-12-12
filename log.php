@@ -43,7 +43,7 @@
                         <input type="password" name="pw" placeholder="密碼"/> <br>
                     </div>
                     </div>
-                    <input type="submit" name="button" value="登入" />&nbsp;&nbsp;
+                    <input type="submit" class="ui teal button" name="button" value="登入" />&nbsp;&nbsp;
                 </form>
                   <div class="ui message">New to us? <a href="register.php">會員註冊</a>
                   </div>

@@ -88,6 +88,8 @@
   <div id="content">
     <div id="fade" style="width:450px; text-align:center;"></div>
   </div>
+
+
   <div class="ui special cards" >
 <?php
             $query = "SELECT * FROM product ";
