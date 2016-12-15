@@ -20,3 +20,4 @@
         ( $update == true ? $result['status'] = true : $result['status'] = false );
     }
     echo json_encode($result);
+    ?>

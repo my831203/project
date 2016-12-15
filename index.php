@@ -9,7 +9,7 @@
     <script src="Semantic-UI-CSS-master/semantic.min.js"></script>
 </head>
 
-<body>
+<body style="background-color: #f5f5f1;">
     <div class="ui labeled icon menu" style="background-color: #82b541;color: #FFFFFF;">
         <?php
             require 'config.php';
@@ -25,13 +25,15 @@
 
                 // $query是上面我設定的變數，->就是物件導向不用管他名稱，fetch_assoc() 這方法等同於mysql_query() 就改成這樣而已
                 $row = $query->fetch_assoc();
+            }
         ?>
     </div>
 
 
-    <div class="ui center aligned segment">
+    <div class="ui center aligned segment"  style="background-image:url(img/bg.jpg);" >
+    <?php//style="background-image:url(img/bg.png);"?>
 
-        <div class="ui center aligned statistic">
+        <div class="ui center aligned statistic"  >
 
             <div class="label">
                 <img src="img/bank.png" class="ui mini circular inline image"> <?=$row['coin']?>
@@ -45,16 +47,16 @@
                   echo '<img src="img/2.png">';
                 }
                 else{
-                  echo '<img src="img/3.png">';
+                  echo '<img src="img/1.gif">';
                 }
             ?>
 
         </div>
 
-        <div class="ui small images">
-            <img class="ui tiny circular image func" types="seeds" value="1000" src="img/seeds.png">
-            <img class="ui tiny circular image func" types="water" value="3000" src="img/water.png">
-            <img class="ui tiny circular image func" types="famer" value="5000" src="img/farmer.png">
+        <div class="ui tiny images">
+            <button class="ui medium circular image" onclick="location.href='index.php'"><img class="ui tiny circular image func" types="seeds" value="1000" src="img/seeds.png" ></button>
+            <button class="ui medium circular image" onclick="location.href='index.php'"><img class="ui tiny circular image func" types="water" value="3000" src="img/water.png" onclick="location.href='index.php'"></button>
+            <button class="ui medium circular image" onclick="location.href='index.php'"><img class="ui tiny circular image func" types="famer" value="5000" src="img/farmer.png" onclick="location.href='index.php'"></button>
         </div>
 
         <script>
@@ -76,28 +78,69 @@
 
                             var response = $.parseJSON(JSON.stringify(response));
                             if (response.status == true) {
-                                alert('success');
+                                alert('施肥成功，將會扣金幣1000');
                             }
                             else{
-                                alert('臭廢物，沒錢玩三小！');
+                                alert('趕快去練習賺點錢吧~');
                             }
                         }
                     });
                 }
                 else if ($(this).attr('types') == "water") {
-                    // 依此類推
+                    $.ajax({
+                        type:'post',
+                        url:'del_coin.php',
+                        dataType:'json',
+                        data: {
+                            value : $(this).attr('value'),
+                        },
+                        error: function (xhr) {
+                            alert('failed');
+                        },
+                        success: function (response) {
+
+                            var response = $.parseJSON(JSON.stringify(response));
+                            if (response.status == true) {
+                                alert('澆水成功，將會扣金幣3000');
+                            }
+                            else{
+                                alert('趕快去練習賺點錢吧~');
+                            }
+                        }
+                    });
+                    
                 }
                 else if ($(this).attr('types') == "famer") {
-                    // 依此類推
+                    $.ajax({
+                        type:'post',
+                        url:'del_coin.php',
+                        dataType:'json',
+                        data: {
+                            value : $(this).attr('value'),
+                        },
+                        error: function (xhr) {
+                            alert('failed');
+                        },
+                        success: function (response) {
+
+                            var response = $.parseJSON(JSON.stringify(response));
+                            if (response.status == true) {
+                                alert('除草成功，將會扣金幣5000');
+                            }
+                            else{
+                                alert('趕快去練習賺點錢吧~');
+                            }
+                        }
+                    });
+                  
                 }
+                
             });
 
         </script>
 
         </div>
-    <?php
-        }
-    ?>
+
 
 </body>
 </html>

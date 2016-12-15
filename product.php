@@ -11,98 +11,84 @@
 
 <body style="background-color: #f5f5f1;">
 
-    <div class="ui labeled icon menu" style="background-color: #82b541;color: #FFFFFF;">
-      <a class="item" href="index.php" style="color:#FFFFFF;">
-        <i class="home icon"></i>
-        首頁
-      </a>
-      <a class="item" href="learn.php" style="color:#FFFFFF;">
-        <i class="book icon"></i>
-        教學
-      </a>
-      <a class="item" href="test.php" style="color:#FFFFFF;">
-        <i class="write icon"></i>
-        測驗
-      </a>
-      <a class="item" href="shop.php" style="color:#FFFFFF;">
-        <i class="shop icon"></i>
-        商城
-      </a>
-    <?php 
-                    include("db.php");
+<div class="ui labeled icon menu" style="background-color: #82b541;color: #FFFFFF;">
+<a class="item" href="index.php" style="color:#FFFFFF;">
+    <i class="home icon"></i>首頁
+</a>
+<a class="item" href="learn.php" style="color:#FFFFFF;">
+    <i class="book icon"></i>教學
+</a>
+<a class="item" href="test.php" style="color:#FFFFFF;">
+    <i class="write icon"></i>測驗
+</a>
+<a class="item" href="shop.php" style="color:#FFFFFF;">
+    <i class="shop icon"></i>商城
+</a>
+<?php
+    if (isset($_SESSION['id'])) {
 
-                          if($_SESSION['id'] != null)
-                          {
-                            echo"Hello&nbsp;&nbsp;&nbsp;".$_SESSION['id'];
-                echo"<div class=\"head-signin\">";
-                            echo"<h5><a href ="."logout.php"." align=\"right\"><i class=\"hd-dign\"></i><br>登出</a></h5>";
-                echo"</div>";
+        echo '
+            <a class="item" href="logout.php" style="color:#FFFFFF;">
+                <i class="user icon"></i>登出 '.$_SESSION['id'].'
+            </a>
+        ';
+    }
+    else{
 
-                          }
-                          else
-                          {
-                echo"<div class=\"head-signin\">";
-                            echo"<h5><a href="."log.php"."><i class=\"hd-dign\"></i>登入</a></h5>";
-                echo"</div>";
-                          }
-      ?>
-
+        echo '
+            <a class="item" href="log.php" style="color:#FFFFFF;">
+                <i class="user icon"></i>登入
+            </a>
+        ';
+    }
+?>
       
-                    <a href="cart.php">
+
+<?php
+            require 'config.php';
+            // 找出該使用者 member 表資料
+
+            if (isset($_SESSION['id'])) {
+                $id = $_SESSION['id'];
+
+                // $link就是我當初在弄config檔時給的變數， query就是請求資料，其他都長一樣
+                $query = $link->query("SELECT * FROM member where id = '$id'");
+
+                // $query是上面我設定的變數，->就是物件導向不用管他名稱，fetch_assoc() 這方法等同於mysql_query() 就改成這樣而已
+                $row = $query->fetch_assoc();
+              }
+        ?>
+<a href="cart.php">
                         <?php
-                        include("db.php");
-                        $sqll = "SELECT * FROM cart where p_username='$id'";
-                        $re = mysql_query($sqll);
-                        $num = mysql_fetch_row($re);
+                        $sss = $link->query("SELECT * FROM cart where p_username='$id'");
+                         $rows = $sss->fetch_assoc();
+                        $num = mysql_fetch_row($rows);
                         // count products in cart
                         
                         ?>
-                        Cart <span class="badge" id="comparison-count"><?php echo $num; ?></span>
+                        Cart <span class="badge" id="comparison-count"><?php echo '$num'; ?></span>
                     </a>
-                
-
-      </div>
+</div>
 
 
-<?php
 
-      if($_SESSION['id'] != null)
-      {
-        //將$_SESSION['username']丟給$id
-        //這樣在下SQL語法時才可以給搜尋的值
-        $id = $_SESSION['id'];
-        //若以下$id直接用$_SESSION['username']將無法使用
-        $sql = "SELECT * FROM member where id='$id'";
-        mysql_query($sql);
-       
-      }
-        else{
-        echo '您無權限觀看此頁面!';
-        echo '<meta http-equiv=REFRESH CONTENT=2;url=log.php>';
-}?>
+<div align="center" >
+
+<div class="ui special cards" >
 
 <?php  
 
     $A      = $_GET['A'];
-    $result = mysql_query("SELECT * FROM product WHERE id_P = '$A'");
+    $result = $link->query("SELECT * FROM product WHERE id_P = '$A'");
     
-    while($row = mysql_fetch_array($result)) {
+    while($row = $result->fetch_assoc()) {
 
       $item_id = $row['id_P'];
 ?>
 
 
 
-<div id="main">
-  <div class="cl">&nbsp;</div>
-    
-  <!-- Content -->
-  <div id="content">
-  <div id="fade" style="width:450px; text-align:center;"></div>
-  </div>
-    <!-- End Content -->
-    <!-- table border -->
-<div class="ui special cards" >
+
   <div class="card" >
     <div class="blurring dimmable image">
       <img src="img/<?=$row['img'];?>" height="150" width="150">
@@ -122,14 +108,11 @@
     <input type="text" placeholder="輸入數量" id="amount">
         <div class="ui basic label">個</div>
     </div>
-        <button type="button" id="buy" class="ui button" item="<?=$row['id_P']?>">加入購物車</button>
+        <button type="button" id="buy" class="ui button" item="<?=$row['id_P']?>" onclick="location.href='product.php?A=<?=$row['id_P'];?>'">加入購物車</button>
     </div>
   </div>
-<?php
-        }
-        ?> 
-
-
+ 
+</div>
 </div>
 </div>
 
@@ -142,20 +125,28 @@
             url:'addItem.php',
             dataType:'json',
             data: {
-                id : $(this).attr('item'),
+                pro : $(this).attr('item'),
                 amount : $("#amount").val(),
             },
 
             error: function (xhr) {
-                alert('加入購物車失敗');
+                alert('加入購物車成功');
             },
             success: function (response) {
-                alert('加入購物車成功');
+              var response = $.parseJSON(JSON.stringify(response));
+                            if (response.status == true) {
+                                alert('加入購物車成功');
+                            }
+                            else{
+                                alert('加入購物車失敗');
+                            }
             }
         });
     });
 </script>
-
+<?php
+        }
+        ?>
 
 
 </body>

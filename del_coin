@@ -4,6 +4,8 @@
 
 <?php
 
+  $result = false;
+
   require 'config.php';
 
     $id     =   $_SESSION['id'];
@@ -26,20 +28,21 @@
             			
                             //echo '新增成功!';
             		echo '<script>alert('$but'); </script>'; 
-                        //echo '<meta http-equiv=REFRESH CONTENT=0;url=index.php>';
+                header( "location:index.php");
+                
             			   
             }
            else
                   {
                          echo '<script>alert("錢不夠，多多加油!"); </script>';
                   }
-          		
-          		
-          		//echo"一筆結束";
+          		    echo json_encode($result);
+
+           		//echo"一筆結束";
 		
 		}
 
-//header( "location:index.php");  //回index.php
+     //回index.php
 		
 
 
