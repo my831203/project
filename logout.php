@@ -4,6 +4,6 @@
 //將session清空
 unset($_SESSION['id']);
 unset($_SESSION['num']);
-echo '登出中......';
+echo '<script>alert("登出成功"); </script>';
 echo '<meta http-equiv=REFRESH CONTENT=1;url=log.php>';
 ?>

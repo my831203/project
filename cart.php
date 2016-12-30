@@ -1,7 +1,8 @@
+<!--購物車內容-->
 <?php session_start(); ?>
 <html>
 <head>
-    <title>TLH</title>
+    <title>TLH 我的購物車</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet">
@@ -24,8 +25,9 @@
 
 <div class="ui aligned center aligned grid">
 <div class="ui segment">
-<form class="ui large form" name="form" method="post" action="order.php">
-   <table class="ui single line table">
+<form class="ui unstackable table" name="form" method="post" action="order.php">
+<div class="ui stacked segment"><h2 class="ui header">購物車內容</h2>
+   <table >
   <thead>
     <tr>
       <th>商品</th>
@@ -57,10 +59,12 @@ if (isset($_SESSION['id'])) {
       <td><?=$row['p_price'];?>元</td>
       <td><?=$row['p_amount'];?>個</td>
       <td><?php echo "$total"; ?>元</td>
-      <td class="right aligned collapsing"><button type="button" id="del" class="ui button" item="<?=$row['c_id']?>" onclick="location.href='cart.php'">刪除此商品</button></td>
+      <td class="right aligned collapsing"><button type="button" id="del" class="ui button"  onclick="location.href='delItem.php?C=<?=$row['c_id']?>'">刪除此商品</button></td>
     </tr>
+
 <?php
   }?>
+
   
     <tr>
       <th></th>
@@ -70,48 +74,24 @@ if (isset($_SESSION['id'])) {
       <th></th>
     </tr>
 
-    <tr>
 
-    <th>
-    <button type="button" class="ui teal button" onclick="location.href='shop.php'">繼續選購</button>
-    <input type="submit" class="ui teal button" name="button" value="確定購買" />
-    <th>
-    <th></th>
-    </tr>
   </tbody>
 
 </table>
+</div>
+<div align="center">
+<button type="button" class="ui teal button" onclick="location.href='shop.php'">繼續選購</button>
+<input type="submit" class="ui teal button" name="button" value="確定購買" /> 
+</div>
+
+
+</div>
 </div>
 </div>
 
 </form>
 
- <script>
-    $("#del").click(function(){
-
-        $.ajax({
-            type:'post',
-            url:'delItem.php',
-            dataType:'json',
-            data: {
-                c_id : $(this).attr('item'),
-            },
-
-            error: function (xhr) {
-                alert('刪除失敗');
-            },
-             success: function (response) {
-              var response = $.parseJSON(JSON.stringify(response));
-                            if (response.status == true) {
-                                alert('刪除成功');
-                            }
-                            else{
-                                alert('刪除失敗');
-                            }
-            }
-        });
-    });
-</script>
+ 
 
 </body>
 </html>

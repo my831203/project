@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <html>
 <head>
-    <title>TLH</title>
+    <title>TLH商品</title>
     <meta charset="utf-8">
     <link href="Semantic-UI-CSS-master\semantic.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -34,12 +34,9 @@
         ';
     }
     else{
+        echo  '<script>alert("您無權限觀看此頁面請先登入!"); </script>';
+        echo '<meta http-equiv=REFRESH CONTENT=0;url=log.php>';
 
-        echo '
-            <a class="item" href="log.php" style="color:#FFFFFF;">
-                <i class="user icon"></i>登入
-            </a>
-        ';
     }
 ?>
       
@@ -58,21 +55,18 @@
                 $row = $query->fetch_assoc();
               }
         ?>
-<a href="cart.php">
-                        <?php
-                        $sss = $link->query("SELECT * FROM cart where p_username='$id'");
-                         $rows = $sss->fetch_assoc();
-                        $num = mysql_fetch_row($rows);
-                        // count products in cart
-                        
-                        ?>
-                        Cart <span class="badge" id="comparison-count"><?php echo '$num'; ?></span>
-                    </a>
+        <a class="item" href="cart.php" style="color:#FFFFFF;">
+            <i class="Shopping Basket icon"></i>購物車
+        </a>
 </div>
 
-
+<h1 class="ui header"> </h1>
+<h1 class="ui header"> </h1>
 
 <div align="center" >
+
+<div class="ui aligned center aligned grid">
+<div class="ui segment">  
 
 <div class="ui special cards" >
 
@@ -89,10 +83,14 @@
 
 
 
-  <div class="card" >
+
+      <div class="card">
+
+
     <div class="blurring dimmable image">
       <img src="img/<?=$row['img'];?>" height="150" width="150">
     </div>
+
     <div class="content">
       <a class="header">名稱：<?=$row['name'];?></a>
       <div class="meta">
@@ -100,19 +98,40 @@
       </div>
     </div>
     <div class="extra content">
-      <a><i class="users icon"></i>價格：$ <?=$row['price']; ?></a>
-      <span class="right floated">剩餘數量：<?=$row['amount'];?>個</span>
+      <a><i class="Dollar icon"></i>價格：$ <?=$row['price']; ?></a>
+      <!--<span class="right floated">剩餘數量：<?=$row['amount'];?>個</span>-->
     </div>
     <div class=" center aligned extra content" >
     <div class="ui right labeled input">
-    <input type="text" placeholder="輸入數量" id="amount">
-        <div class="ui basic label">個</div>
+    <select class="ui search dropdown" id="amount">個
+                <option value="1">1</option>
+               <option value="2">2</option>
+               <option value="3">3</option>
+               <option value="4">4</option>
+               <option value="5">5</option>
+               <option value="6">6</option>
+               <option value="7">7</option>
+               <option value="8">8</option>
+               <option value="9">9</option>
+               <option value="10">10</option>
+               <option value="11">11</option>
+               <option value="12">12</option>
+               <option value="13">13</option>
+               <option value="14">14</option>
+               <option value="15">15</option>
+               <option value="16">16</option>
+                <option value="17">17</option>
+                 <option value="18">18</option>
+                  <option value="19">19</option>
+                   <option value="20">20</option>
+               </select>              
     </div>
-        <button type="button" id="buy" class="ui button" item="<?=$row['id_P']?>" onclick="location.href='product.php?A=<?=$row['id_P'];?>'">加入購物車</button>
+        <button type="button" id="buy" class="ui button" item="<?=$row['id_P']?>" onclick="location.href='shop.php'">加入購物車</button>
     </div>
   </div>
- 
+
 </div>
+ </div>
 </div>
 </div>
 

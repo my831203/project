@@ -1,15 +1,16 @@
 <?php session_start(); ?>
 <html>
 <head>
-    <title>TLH</title>
+    <title>TLH童樂會</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="Semantic-UI-CSS-master/semantic.min.js"></script>
+   
 </head>
 
-<body style="background-color: #f5f5f1;">
+<body style="background-color: #f5f5f1;" >
     <div class="ui labeled icon menu" style="background-color: #82b541;color: #FFFFFF;">
         <?php
             require 'config.php';
@@ -26,120 +27,81 @@
                 // $query是上面我設定的變數，->就是物件導向不用管他名稱，fetch_assoc() 這方法等同於mysql_query() 就改成這樣而已
                 $row = $query->fetch_assoc();
             }
+           
         ?>
     </div>
 
 
-    <div class="ui center aligned segment"  style="background-image:url(img/bg.jpg);" >
-    <?php//style="background-image:url(img/bg.png);"?>
+    
+    <div class="ui center aligned segment"  style="background-image:url(img/bg.jpg);" ><br>
+   
+
+    
 
         <div class="ui center aligned statistic"  >
 
-            <div class="label">
-                <img src="img/bank.png" class="ui mini circular inline image"> <?=$row['coin']?>
-            </div>
+             <div class="label">
+             <img src="img/doc.png"  data-title="小提示" data-content="澆水需$1000<br>施肥需$3000<br>除草需$5000<br>收成需$10000<br>*完成測驗最高可獲得$2500喔" class="ui Tiny avatar image">&nbsp;&nbsp;點我看提示 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="img/col_.png" class="ui Mini circular inline image" onclick="location.href='col.php'">&nbsp;&nbsp;我的收集 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <img class="ui right spaced avatar image" src="img/bank.png"><a class="ui circula label"> <?=$row['coin']?> </a>
+                 <br><br><br>
+ 
+
+ 
 
             <?php
                 if ($row['touch'] <= 5) {
-                  echo '<img src="img/1.png">';
+                  echo '<img class="ui centered image" src="img/1.gif">';
                 }
                 else if ($row['touch'] <= 10) {
-                  echo '<img src="img/2.png">';
+                  echo '<img class="ui centered image" src="img/2.gif">';
                 }
-                else{
-                  echo '<img src="img/1.gif">';
+                else if ($row['touch'] <= 15) {
+                   echo '<img class="ui centered image" src="img/3.gif">';
                 }
+				else if ($row['touch'] <= 20) {
+                   echo '<img class="ui centered image" src="img/4.gif">';
+                }
+                else if ($row['touch'] = 20){                                 
+					echo "<script>alert(\"該收成了喔!\");</script>";
+					echo '<img class="ui centered image" src="img/4.gif">';
+                }
+				else{
+					
+				}
             ?>
+           <!-- <img class="ui Large circular inline image" src="img/t.png">-->
+
+        </div><br><br>
+        <div class="ui Medium images">
+            
+            <img src="img/seeds.png" class="ui Large circular inline image"  types="seeds" value="1000" name="施肥" src="img/seeds.png" onclick="location.href='del_coin.php?C=seeds'">          
+            <img src="img/water.png" class="ui Large circular inline image" types="water" value="3000" name="澆水" onclick="location.href='del_coin.php?C=water'">
+            <img src="img/farmer.png" class="ui Large circular inline image"  types="farmer" value="5000" name="除草" onclick="location.href='del_coin.php?C=farmer'">
+            <?php
+            if ($row['touch'] >= 20) {?>
+             <img src="img/col.png" class="ui Large circular inline image" onclick="location.href='bamboo.php'"">
+            <?php ;}?>
+            <br><br><br><br>
 
         </div>
-
-        <div class="ui tiny images">
-            <button class="ui medium circular image" onclick="location.href='index.php'"><img class="ui tiny circular image func" types="seeds" value="1000" src="img/seeds.png" ></button>
-            <button class="ui medium circular image" onclick="location.href='index.php'"><img class="ui tiny circular image func" types="water" value="3000" src="img/water.png" onclick="location.href='index.php'"></button>
-            <button class="ui medium circular image" onclick="location.href='index.php'"><img class="ui tiny circular image func" types="famer" value="5000" src="img/farmer.png" onclick="location.href='index.php'"></button>
+                </div>
         </div>
 
-        <script>
 
-            $(".func").click(function(){
-                if ($(this).attr('types') == "seeds") {
 
-                    $.ajax({
-                        type:'post',
-                        url:'del_coin.php',
-                        dataType:'json',
-                        data: {
-                            value : $(this).attr('value'),
-                        },
-                        error: function (xhr) {
-                            alert('failed');
-                        },
-                        success: function (response) {
+  
+<div class="ui labeled icon menu" style="background-color: #82b541;color: #FFFFFF;">
+<a class="item" href="user.php" style="color:#FFFFFF;">
+    <i class="setting icon"></i>會員管理</a>
+    <a class="item" href="about.php" style="color:#FFFFFF;">
+    <i class="setting icon"></i>About Us</a>
+    </div>
 
-                            var response = $.parseJSON(JSON.stringify(response));
-                            if (response.status == true) {
-                                alert('施肥成功，將會扣金幣1000');
-                            }
-                            else{
-                                alert('趕快去練習賺點錢吧~');
-                            }
-                        }
-                    });
-                }
-                else if ($(this).attr('types') == "water") {
-                    $.ajax({
-                        type:'post',
-                        url:'del_coin.php',
-                        dataType:'json',
-                        data: {
-                            value : $(this).attr('value'),
-                        },
-                        error: function (xhr) {
-                            alert('failed');
-                        },
-                        success: function (response) {
 
-                            var response = $.parseJSON(JSON.stringify(response));
-                            if (response.status == true) {
-                                alert('澆水成功，將會扣金幣3000');
-                            }
-                            else{
-                                alert('趕快去練習賺點錢吧~');
-                            }
-                        }
-                    });
-                    
-                }
-                else if ($(this).attr('types') == "famer") {
-                    $.ajax({
-                        type:'post',
-                        url:'del_coin.php',
-                        dataType:'json',
-                        data: {
-                            value : $(this).attr('value'),
-                        },
-                        error: function (xhr) {
-                            alert('failed');
-                        },
-                        success: function (response) {
-
-                            var response = $.parseJSON(JSON.stringify(response));
-                            if (response.status == true) {
-                                alert('除草成功，將會扣金幣5000');
-                            }
-                            else{
-                                alert('趕快去練習賺點錢吧~');
-                            }
-                        }
-                    });
-                  
-                }
-                
-            });
-
-        </script>
-
-        </div>
+    
 
 
 </body>

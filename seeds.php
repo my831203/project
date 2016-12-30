@@ -5,7 +5,7 @@
  <?php
  $db_server = "localhost";
  $db_name = "play";
- $db_user = "wenlly";
+ $db_user = "root";
  $db_passwd = "12345678";
 $id = $_SESSION['id'];
 

@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<!--將商品加入購物車-->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php  
   $result = false;

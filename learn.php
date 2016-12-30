@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <html>
 <head>
-    <title>TLH</title>
+    <title>TLH教學</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet">
@@ -29,31 +29,29 @@
             }
         ?>
     </div>
+<br>
 
-<?php
-    $result = $link->query("SELECT * FROM learn");
-
-    while($row = $result->fetch_assoc())
-    {
-
-
-?>
-
-    <div class="ui cards">
-
-  <div class="card">
-    <div class="content">
-      <div class="header">第<?=$row['lesson'];?>單元</div>
-      <div class="description"><?=$row['point'];?> </div>
-    </div>
-    <div class="ui bottom attached button" onclick="location.href='golearn.php?B=<?=$row['lesson'];?>'"><i class="add icon" ></i> 進入學習 </div>
-  </div>
+<h4 class="ui horizontal divider header"><i class="tag icon"></i> 選擇科目 </h4><br>
+    <div class="ui grid">
+          <div class="two wide column"></div>
+          <div class="four wide column"><img class="ui centered image" src="img/chin.jpeg"></div>
+          <div class="four wide column"><img class="ui centered image" src="img/eng.jpeg"></div>
+          <div class="four wide column"><img class="ui centered image" src="img/math.jpeg"></div><br>
+          <div class="two wide column"></div>
+          <div class="four wide column"></div><br><br>
+          <div class="four wide column"><img class="ui centered image" src="img/scen.jpeg" onclick="location.href='scen.php'"></div>
+          <div class="four wide column"><img class="ui centered image" src="img/soc.jpeg"></div>
+          <div class="four wide column"></div>
+          
 </div>
+  <br><br><br><br><br><br>
+<div class="ui labeled icon menu" style="background-color: #82b541;color: #FFFFFF;">
+<a class="item" href="user.php" style="color:#FFFFFF;">
+    <i class="setting icon"></i>會員管理</a>
+    <a class="item" href="about.php" style="color:#FFFFFF;">
+    <i class="setting icon"></i>About Us</a>
+    </div>
 
-<?php
-
-        }
-    ?>
 
 </body>
 </html>

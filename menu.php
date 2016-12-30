@@ -21,10 +21,9 @@
     }
     else{
 
-        echo '
-            <a class="item" href="log.php" style="color:#FFFFFF;">
-                <i class="user icon"></i>登入
-            </a>
-        ';
+        echo  '<script>alert("您無權限觀看此頁面請先登入!"); </script>';
+        echo '<meta http-equiv=REFRESH CONTENT=0;url=log.php>';
+
+        
     }
 ?>
