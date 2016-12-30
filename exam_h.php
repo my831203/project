@@ -25,6 +25,9 @@
 	$response['trueAns'] = $link->query("SELECT ans FROM question WHERE Q_id = '$question'")->fetch_assoc();
 
 	echo json_encode($response);
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> cd9d483f52f14ba805e164b809d38416f56e8db6
